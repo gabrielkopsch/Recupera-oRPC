@@ -46,7 +46,7 @@ public class SpawnManager : MonoBehaviour
             {
                 appleSelected = apple3Prefab;
             }
-            //NetworkManager.instance.Instantiate(appleSelected, new Vector2(GameManager.instance.ScreenBounds.x, Random.Range(-2, 2)), Quaternion.identity);
+            NetworkManager.instance.Instantiate(appleSelected, new Vector2(GameManager.instance.ScreenBounds.x, Random.Range(-2, 2)), Quaternion.identity);
             timer = cooldown;
         }
 
