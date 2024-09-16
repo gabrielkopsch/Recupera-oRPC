@@ -38,8 +38,4 @@ public class ManagerUI : MonoBehaviour
     {
         gameOverWindow.SetActive(active);
     }
-   public void UpdateScoreText()
-    {
-
-    }
 }
