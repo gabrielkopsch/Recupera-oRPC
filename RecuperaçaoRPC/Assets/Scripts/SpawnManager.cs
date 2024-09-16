@@ -16,11 +16,6 @@ public class SpawnManager : MonoBehaviour
     float appleIndex;
 
     string appleSelected;
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
