@@ -1,3 +1,4 @@
+using Photon.Pun.Demo.Asteroids;
 using Photon.Pun.Demo.PunBasics;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +17,6 @@ public class SpawnManager : MonoBehaviour
     float appleIndex;
 
     string appleSelected;
-    // Update is called once per frame
     void Update()
     {
         if (Photon.Pun.PhotonNetwork.IsMasterClient)
@@ -31,7 +31,7 @@ public class SpawnManager : MonoBehaviour
 
         if (timer <= 0)
         {
-            appleIndex = Random.Range(0, 1);
+            appleIndex = Random.Range(0f, 1f);
             if (appleIndex <= 0.5)
             {
                 appleSelected = apple1Prefab;
@@ -46,9 +46,26 @@ public class SpawnManager : MonoBehaviour
             {
                 appleSelected = apple3Prefab;
             }
-            NetworkManager.instance.Instantiate(appleSelected, new Vector2(GameManager.instance.ScreenBounds.x, Random.Range(-2, 2)), Quaternion.identity);
+            
+           // NetworkManager.instance.Instantiate(appleSelected, new Vector2(GameManager.instance.ScreenBounds.x, Random.Range(-2, 2)), Quaternion.identity);
+            NetworkManager.instance.Instantiate(appleSelected, new Vector2(Random.Range(-4, 4), GameManager.instance.ScreenBounds.y), Quaternion.identity);
+
+
             timer = cooldown;
         }
+       
 
+
+    }
+    Vector2 screenBounds;
+    Vector2 GeneratePosition(GameObject objectSelected)
+    {
+        Vector2 spriteBounds = objectSelected.GetComponent<SpriteRenderer>().bounds.size / 2;
+
+        Vector2 bounds = new Vector2(screenBounds.x - spriteBounds.x, screenBounds.y + spriteBounds.y);
+
+        Debug.Log(spriteBounds);
+        Debug.Log(bounds);
+        return new Vector2(Random.Range(-bounds.x, bounds.x), bounds.y);
     }
 }
