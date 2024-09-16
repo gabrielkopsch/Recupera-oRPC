@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviourPun
     public Vector2 ScreenBounds { get => screenBounds; }
     public int Score { get => score; set => score = value; }
 
-    const string playerPrefabPath = "Prefabs/basket";
+    const string playerPrefabPath = "Prefabs/Player";
 
 
     private void Start()
@@ -47,8 +47,8 @@ public class GameManager : MonoBehaviourPun
     [PunRPC]
     public void AddScore()
     {
-        score++;
-        //UIManager.instance.UpdateScoreText();
+        score+= score;
+        ManagerUI.instance.UpdateScoreText();
     }
     [PunRPC]
     private void AddPlayer()
