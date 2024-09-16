@@ -23,7 +23,7 @@ public class Apple : MonoBehaviourPun
     {
         rigidbody2D.velocity = Vector2.down * speed;
 
-        // if (transform.position.y <// -GameManager.instace.ScreenBounds.y// )
+         if (transform.position.y < -GameManager.instance.ScreenBounds.y )
         {
             photonView.RPC("DestroyRPC",RpcTarget.All);
         }
