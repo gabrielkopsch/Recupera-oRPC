@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviourPun
     public void AddScore()
     {
         score+= score;
-        //ManagerUI.instance.UpdateScoreText();
+        ManagerUI.instance.UpdateScoreText();
     }
     [PunRPC]
     private void AddPlayer()

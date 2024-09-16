@@ -2,40 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ManagerUI : MonoBehaviour
 {
     #region Singleton
-
     public static ManagerUI instance;
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-        timerText = GameObject.Find("Timer Text").GetComponent<TextMeshProUGUI>();
-        gameOverWindow = GameObject.Find("GameOverWindow");
+        instance = this;
     }
-
     #endregion
 
-    TextMeshProUGUI timerText;
-    GameObject gameOverWindow;
+    [SerializeField] TextMeshProUGUI scoreText, finalScoreText, recordText;
+    [SerializeField] GameObject gameOverWindow;
 
-    public void UpdateTimerText(float value)
+    public void UpdateScoreText()
     {
-        timerText.text = value.ToString("0.0");
+        scoreText.text = GameManager.instance.Score.ToString();
     }
 
-    public void SetGameOver(bool active)
+    public void GameOver()
     {
-        gameOverWindow.SetActive(active);
+        finalScoreText.text = GameManager.instance.Score.ToString();
+        recordText.text = PlayerPrefs.GetInt("Record").ToString();
+        gameOverWindow.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void Restart()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
