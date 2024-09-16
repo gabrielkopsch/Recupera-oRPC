@@ -84,11 +84,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Player " + PhotonNetwork.NickName + " joined room"); // Loga uma mensagem no console
         MenuManager.instance.UpdatePlayerList(GetPlayerList()); // Atualiza a lista de jogadores no menuManager
         MenuManager.instance.SetStartButton(PhotonNetwork.IsMasterClient); // Define o botão de iniciar se o jogador for o mestre da sala
-
-        
     }
-
-    
     
     // Método para carregar uma cena
     public void LoadScene(string sceneName)
