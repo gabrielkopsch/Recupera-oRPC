@@ -12,12 +12,16 @@ public class PlayerController : MonoBehaviourPun
     [SerializeField] float speed = 10;
     [SerializeField] Rigidbody2D rb;
 
+    Apple apple;
+    GameManager gameManager;
+
     private void Update()
     {
         if (controllerOn)
         {
             direction.x = Input.GetAxis("Horizontal");
             Movement();
+           
         }
     }
 
@@ -51,6 +55,7 @@ public class PlayerController : MonoBehaviourPun
         if (collision.gameObject.tag == "Apple")
         {
             PhotonNetwork.Destroy(collision.gameObject);
+            GameManager.instance.photonView.RPC("SetScore", RpcTarget.All, 5);
         }
     }
 

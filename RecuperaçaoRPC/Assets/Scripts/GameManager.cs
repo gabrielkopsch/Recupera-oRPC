@@ -45,9 +45,9 @@ public class GameManager : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void AddScore()
+    public void SetScore(int value)
     {
-        score+= score;
+        score += value;
         ManagerUI.instance.UpdateScoreText();
     }
     [PunRPC]
