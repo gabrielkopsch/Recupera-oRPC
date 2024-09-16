@@ -139,6 +139,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbe75b5c8fd284c46903e92f4c4a7607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  controllerOn: 1
+  direction: {x: 0, y: 0}
+  speed: 10
+  rb: {fileID: 0}
 --- !u!50 &-8337328901356803993
 Rigidbody2D:
   serializedVersion: 4
@@ -147,7 +152,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3486463667438798378}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

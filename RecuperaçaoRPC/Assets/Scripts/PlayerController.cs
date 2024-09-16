@@ -1,54 +1,57 @@
 using Photon.Pun;
-using Photon.Pun.Demo.PunBasics;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviourPun
 {
-    const float velocity = 10;
-    float direction;
-    Rigidbody2D rigidbody2D;
-    bool playerLocal =true ;
-    
+    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] bool controllerOn = true;
+    [SerializeField] Vector2 direction;
+    [SerializeField] float speed = 10;
+    [SerializeField] Rigidbody2D rb;
 
-
-    // Start is called before the first frame update
-    void Awake()
+    private void Update()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        photonView.RPC("Intializate", RpcTarget.All);
+        if (controllerOn)
+        {
+            direction.x = Input.GetAxis("Horizontal");
+            Movement();
+        }
     }
+
+    void Movement()
+    {
+        rb.velocity = new Vector2(direction.x * speed, rb.velocity.y);
+
+        Vector2 playerPosition = transform.position;
+        playerPosition.x = Mathf.Clamp(playerPosition.x, -GameManager.instance.ScreenBounds.x, GameManager.instance.ScreenBounds.x);
+
+        transform.position = playerPosition;
+    }
+
 
     [PunRPC]
-    private void Intializate()
+    public void Initialize()
     {
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         if (!photonView.IsMine)
         {
-            Color color = Color.white;
-            color.a = 0.2f;
-            GetComponent<SpriteRenderer>().color = color;
-            playerLocal = false;
-            
+            Color newColor = spriteRenderer.color;
+            newColor.a = 0.2f;
+            spriteRenderer.color = newColor;
+            controllerOn = false;
         }
-       
     }
-  // Update is called once per frame
-    void Update()
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (playerLocal) 
+        if (collision.gameObject.tag == "Apple")
         {
-            Input.GetKeyDown(KeyCode.LeftArrow);
-            Input.GetKeyDown(KeyCode.RightArrow);
-            Move();
-        } 
+            PhotonNetwork.Destroy(collision.gameObject);
+        }
     }
-
-    void Move()
-    {
-       rigidbody2D.velocity = new Vector2 (velocity, direction);
-     }
-
 
 }
